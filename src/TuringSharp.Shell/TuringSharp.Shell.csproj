@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TuringSharp.csproj">
+    <ProjectReference Include="..\TuringSharp\TuringSharp.csproj">
       <Project>{aae7682c-89a2-481a-8bca-114fe4c5b4d7}</Project>
       <Name>TuringSharp</Name>
     </ProjectReference>

@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSharp", "TuringSharp.csproj", "{AAE7682C-89A2-481A-8BCA-114FE4C5B4D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSharp", "TuringSharp\TuringSharp.csproj", "{AAE7682C-89A2-481A-8BCA-114FE4C5B4D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSharp.Tests", "..\TuringSharp.Tests\TuringSharp.Tests.csproj", "{521D9733-E2CE-4B54-90EA-D8C5FB0F5B90}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSharp.Shell", "TuringSharp.Shell\TuringSharp.Shell.csproj", "{9F9C87F3-602C-4D03-92CA-623BD339DE9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSharp.Tests", "TuringSharp.Tests\TuringSharp.Tests.csproj", "{521D9733-E2CE-4B54-90EA-D8C5FB0F5B90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSharp.UI", "TuringSharp.UI\TuringSharp.UI.csproj", "{2B5007BF-12DA-4C76-BAAC-0ED2D16BE2EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuringSharp.Shell", "TuringSharp.Shell\TuringSharp.Shell.csproj", "{9F9C87F3-602C-4D03-92CA-623BD339DE9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{521D9733-E2CE-4B54-90EA-D8C5FB0F5B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{521D9733-E2CE-4B54-90EA-D8C5FB0F5B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{521D9733-E2CE-4B54-90EA-D8C5FB0F5B90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B5007BF-12DA-4C76-BAAC-0ED2D16BE2EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B5007BF-12DA-4C76-BAAC-0ED2D16BE2EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B5007BF-12DA-4C76-BAAC-0ED2D16BE2EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B5007BF-12DA-4C76-BAAC-0ED2D16BE2EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F9C87F3-602C-4D03-92CA-623BD339DE9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

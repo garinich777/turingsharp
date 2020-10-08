@@ -13,8 +13,6 @@ namespace TuringSharp.Runtime
         public const int GrowthFactor = 5; // Grow by 50 items
         public const int InitialSize = 4;
 
-        private int pointer = 0;
-
         public Tape()
         {
             Data = new char[InitialSize];
@@ -23,23 +21,17 @@ namespace TuringSharp.Runtime
 
         private char[] Data { get; set; }
 
-        public int Pointer
-        {
-            get
-            {
-                return pointer;
-            }
-        }
+        public int Pointer { get; private set; } = 0;
 
         public char CurrentSymbol
         {
             get
             {
-                return Data[pointer];
+                return Data[Pointer];
             }
             set
             {
-                Data[pointer] = value;
+                Data[Pointer] = value;
             }
         }
 
@@ -47,14 +39,14 @@ namespace TuringSharp.Runtime
         {
             bool didGrow = false;
 
-            if (pointer >= (Data.Length - 1))
+            if (Pointer >= (Data.Length - 1))
             {
                 // Need to the extend the tape on the right
                 Grow(true);
                 didGrow = true;
             }
 
-            pointer++;
+            Pointer++;
             return didGrow;
         }
 
@@ -62,13 +54,13 @@ namespace TuringSharp.Runtime
         {
             bool didGrow = false;
 
-            if (pointer == 0)
+            if (Pointer == 0)
             {
                 Grow(false);
                 didGrow = true;
             }
 
-            pointer--;
+            Pointer--;
             return didGrow;
         }
 
@@ -94,7 +86,7 @@ namespace TuringSharp.Runtime
                 FillWithBlanks(0, by);
 
                 // Need to re-index the pointer
-                pointer = GrowthFactor;
+                Pointer = GrowthFactor;
             }
         }
 
@@ -133,28 +125,28 @@ namespace TuringSharp.Runtime
         {
             StringBuilder result = new StringBuilder(fromLeft + fromRight);
 
-            if (fromLeft > pointer)
+            if (fromLeft > Pointer)
             {
                 // If there are not enough symbols on the left, fill with blanks
-                result.Append(new string(Tape.Blank, (fromLeft - pointer)));
+                result.Append(new string(Tape.Blank, (fromLeft - Pointer)));
                 // Now append the symbols on the left of the head
-                result.Append(Data.Take(pointer).ToArray());
+                result.Append(Data.Take(Pointer).ToArray());
             }
             else
                 // Read the required number of symbols from the left
-                result.Append(Data.Skip(pointer - fromLeft).Take(fromLeft).ToArray());
+                result.Append(Data.Skip(Pointer - fromLeft).Take(fromLeft).ToArray());
 
 
-            if (fromRight > (Data.Length - pointer))
+            if (fromRight > (Data.Length - Pointer))
             {
                 // Not enough symbols on the right side, so first read all the available symbols
-                result.Append(Data.Skip(pointer).Take(Data.Length - pointer).ToArray());
+                result.Append(Data.Skip(Pointer).Take(Data.Length - Pointer).ToArray());
                 // ... and then fill with blanks
-                result.Append(new string(Tape.Blank, (fromRight - (Data.Length - pointer))));
+                result.Append(new string(Tape.Blank, (fromRight - (Data.Length - Pointer))));
             }
             else
                 // Just read the symbols on the right
-                result.Append(Data.Skip(pointer).Take(fromRight).ToArray());
+                result.Append(Data.Skip(Pointer).Take(fromRight).ToArray());
 
 
             return result.ToString();

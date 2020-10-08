@@ -15,7 +15,7 @@ namespace TuringSharp.UI
         public static string TrimWithCount(this string s, out int removedStart, out int removedEnd)
         {
             // Trim start
-            var ts = s.TrimStart();
+            string ts = s.TrimStart();
             removedStart = s.Length - ts.Length;
 
             ts = ts.TrimEnd(); // Reuse the previously created string without allocating a new one

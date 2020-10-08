@@ -19,6 +19,7 @@ namespace TuringSharp.UI
         
         public frmMain()
         {
+            //btnStep. = true;
             InitializeComponent();
         }
 
@@ -128,19 +129,26 @@ namespace TuringSharp.UI
                 ExitRunMode();
             }
 
-            machineTaskCancellationToken = new CancellationTokenSource();
-            var ct = machineTaskCancellationToken.Token;
-            machineTask = Task.Factory.StartNew(() =>
+            if (chkRunInFullSpeed.Checked)
             {
-                while (!machine.IsHalted && !ct.IsCancellationRequested)
+                machine.Run();
+            }
+            else
+            {
+                machineTaskCancellationToken = new CancellationTokenSource();
+                var ct = machineTaskCancellationToken.Token;
+                machineTask = Task.Factory.StartNew(() =>
                 {
-                    machine.Step();
-                    Thread.Sleep(200);
-                }
+                    while (!machine.IsHalted && !ct.IsCancellationRequested)
+                    {
+                        machine.Step();
+                        Thread.Sleep(200);
+                    }
 
-                if (!ct.IsCancellationRequested)
-                    InvokeOnMainThread(() => ExitRunMode());
-            }, ct);
+                    if (!ct.IsCancellationRequested)
+                        InvokeOnMainThread(() => ExitRunMode());
+                }, ct);
+            }
         }
 
         private void EnterRunMode()
@@ -167,7 +175,7 @@ namespace TuringSharp.UI
 
         private void btnStep_Click(object sender, EventArgs e)
         {
-
+            machine.Step();
         }
 
     }

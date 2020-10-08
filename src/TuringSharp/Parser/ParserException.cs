@@ -5,20 +5,19 @@ namespace TuringSharp.Parser
     public class ParserException : Exception
     {
 
-        private const string _Message = "Error while while parsing input";
+        private const string _Message = "Error while parsing input";
 
         public ParserException(string message)
             : base(message)
         {
-            this.LineNumber = null;
+            LineNumber = null;
         }
 
         public ParserException(string message, int lineNumber) : base(message)
         {
-            this.LineNumber = lineNumber;
+            LineNumber = lineNumber;
         }
 
         public int? LineNumber { get; set; }
-
     }
 }

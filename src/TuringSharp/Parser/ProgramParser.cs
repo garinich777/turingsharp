@@ -14,7 +14,6 @@ namespace TuringSharp.Parser
     /// </summary>
     public class ProgramParser
     {
-
         public Program Parse(string input)
         {
             var program = new Program();

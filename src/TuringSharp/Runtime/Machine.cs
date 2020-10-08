@@ -118,7 +118,7 @@ namespace TuringSharp.Runtime
         {
             return program.Statements
                 .OrderBy(s => s.CurrentSymbol == Statement.AnySymbol) // Give precedence to specific rules first
-                .Where(s => (s.CurrentState == state && (s.CurrentSymbol == tape.CurrentSymbol || s.CurrentSymbol == Statement.AnySymbol)))
+                .Where(s => s.CurrentState == state && (s.CurrentSymbol == tape.CurrentSymbol || s.CurrentSymbol == Statement.AnySymbol))
                 .FirstOrDefault();
         }
 
@@ -128,6 +128,11 @@ namespace TuringSharp.Runtime
         {
             if (StateChanged != null)
                 StateChanged(this, e);
+        }
+
+        protected void OnStateChanged()
+        {
+
         }
 
         public virtual void OnTapeChanged(TapeChangedEventArgs e)

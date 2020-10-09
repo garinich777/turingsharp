@@ -33,6 +33,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rtbCode = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtSteps = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.chkRunInFullSpeed = new System.Windows.Forms.CheckBox();
             this.btnStep = new System.Windows.Forms.Button();
             this.btnRun = new System.Windows.Forms.Button();
@@ -43,8 +45,6 @@
             this.txtCurrentState = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ofdSelectFile = new System.Windows.Forms.OpenFileDialog();
-            this.txtSteps = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -121,6 +121,26 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "State";
+            // 
+            // txtSteps
+            // 
+            this.txtSteps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.txtSteps.Location = new System.Drawing.Point(86, 48);
+            this.txtSteps.Name = "txtSteps";
+            this.txtSteps.ReadOnly = true;
+            this.txtSteps.Size = new System.Drawing.Size(128, 20);
+            this.txtSteps.TabIndex = 11;
+            this.txtSteps.Text = "0";
+            this.txtSteps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Steps";
             // 
             // chkRunInFullSpeed
             // 
@@ -215,37 +235,17 @@
             // 
             this.ofdSelectFile.Filter = "Text Files|*.txt";
             // 
-            // txtSteps
-            // 
-            this.txtSteps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.txtSteps.Location = new System.Drawing.Point(86, 48);
-            this.txtSteps.Name = "txtSteps";
-            this.txtSteps.ReadOnly = true;
-            this.txtSteps.Size = new System.Drawing.Size(128, 20);
-            this.txtSteps.TabIndex = 11;
-            this.txtSteps.Text = "0";
-            this.txtSteps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 51);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Steps";
-            // 
             // btnReset
             // 
             this.btnReset.BackColor = System.Drawing.Color.Red;
-            this.btnReset.Enabled = false;
             this.btnReset.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnReset.Location = new System.Drawing.Point(139, 239);
+            this.btnReset.Location = new System.Drawing.Point(139, 395);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
-            this.btnReset.TabIndex = 12;
+            this.btnReset.TabIndex = 13;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // frmMain
             // 

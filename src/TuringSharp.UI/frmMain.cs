@@ -23,9 +23,7 @@ namespace TuringSharp.UI
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            isRunning = false;
             ResetMachine(null);
-            UpdateCurrentState();
         }
 
         private void ResetMachine(string input)
@@ -35,6 +33,7 @@ namespace TuringSharp.UI
             machine.StateChanged += Machine_StateChanged;
             machine.TapeChanged += Machine_TapeChanged;
             UpdateTape();
+            UpdateCurrentState();
         }
 
         private void Machine_TapeChanged(object arg1, Machine.TapeChangedEventArgs arg2)
@@ -60,6 +59,7 @@ namespace TuringSharp.UI
             InvokeOnMainThread(() =>
             {
                 txtCurrentState.Text = machine.State;
+                txtSteps.Text = machine.StepsNumber.ToString();
             });
         }
 
@@ -130,9 +130,7 @@ namespace TuringSharp.UI
             if (chkRunInFullSpeed.Checked)
             {
                 machine.Run();
-                InvokeOnMainThread(
-                     () => { txtSteps.Text = machine.StepsNumber.ToString(); }
-                );
+                UpdateCurrentState();
             }
             else
             {
@@ -143,10 +141,8 @@ namespace TuringSharp.UI
                     while (!machine.IsHalted && !ct.IsCancellationRequested)
                     {
                         machine.Step();
-                        InvokeOnMainThread(
-                            ()=> { txtSteps.Text = machine.StepsNumber.ToString(); }
-                        );
-                        Thread.Sleep(200);
+                        UpdateCurrentState();
+                        Thread.Sleep(150);
                     }
 
                     if (!ct.IsCancellationRequested)
@@ -175,12 +171,21 @@ namespace TuringSharp.UI
         private void btnPause_Click(object sender, EventArgs e)
         {
             machineTaskCancellationToken.Cancel();
+            ExitRunMode();
         }
 
         private void btnStep_Click(object sender, EventArgs e)
         {
-            machine.Step();
+            if (machine.IsHalted)
+                MessageBox.Show("Machine is in halted state");
+            else
+                machine.Step();
         }
 
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            ResetMachine(null);
+            ExitRunMode();
+        }
     }
 }

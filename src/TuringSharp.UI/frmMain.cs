@@ -14,6 +14,7 @@ namespace TuringSharp.UI
         Machine machine;
         Task machineTask;
         CancellationTokenSource machineTaskCancellationToken;
+        bool isRun = false;
         
         public frmMain()
         {
@@ -95,42 +96,46 @@ namespace TuringSharp.UI
         private void btnRun_Click(object sender, EventArgs e)
         {
             EnterRunMode();
-
-            try
+            if (!isRun)
             {
-                var program = new ProgramParser().Parse(rtbCode.Text);
-
-                // Check if the program contains any executable statement
-                if (program.Statements.Count == 0)
+                isRun = true;
+                try
                 {
-                    MessageBox.Show("Program is empty");
-                    ExitRunMode();
-                    return;
+                    var program = new ProgramParser().Parse(rtbCode.Text);
+
+                    // Check if the program contains any executable statement
+                    if (program.Statements.Count == 0)
+                    {
+                        MessageBox.Show("Program is empty");
+                        ExitRunMode();
+                        return;
+                    }
+
+                    var input = txtInput.Text.Replace(' ', Tape.Blank);
+                    if (input.Length == 0)
+                        input = null;
+
+                    machine.Load(program, input);
                 }
+                catch (ParserException ex)
+                {
+                    // Don't leave the machine in a unconsistent state
+                    ResetMachine(null);
 
-                var input = txtInput.Text.Replace(' ', Tape.Blank);
-                if (input.Length == 0)
-                    input = null;
+                    if (ex.LineNumber.HasValue)
+                        MessageBox.Show(string.Format("Error while parsing the program: {0} on line {1}", ex.Message, ex.LineNumber.Value));
+                    else
+                        MessageBox.Show(string.Format("Error while parsing the program: {0}", ex.Message));
 
-                machine.Load(program, input);
-            }
-             catch(ParserException ex)
-            {
-                // Don't leave the machine in a unconsistent state
-                ResetMachine(null);
-
-                if (ex.LineNumber.HasValue)
-                    MessageBox.Show(string.Format("Error while parsing the program: {0} on line {1}", ex.Message, ex.LineNumber.Value));
-                else
-                    MessageBox.Show(string.Format("Error while parsing the program: {0}", ex.Message));
-
-                ExitRunMode();
+                    ExitRunMode();
+                }
             }
 
             if (chkRunInFullSpeed.Checked)
             {
                 machine.Run();
                 UpdateCurrentState();
+                ExitRunMode();
             }
             else
             {
@@ -144,18 +149,20 @@ namespace TuringSharp.UI
                         UpdateCurrentState();
                         Thread.Sleep(150);
                     }
-
+                    InvokeOnMainThread(() => ExitRunMode());
                     if (!ct.IsCancellationRequested)
-                        InvokeOnMainThread(() => ExitRunMode());
+                       isRun = false;
                 }, ct);
             }
+            isRun = !machine.IsHalted;
         }
 
         private void EnterRunMode()
         {
             btnRun.Enabled = false;
             chkRunInFullSpeed.Enabled = false;
-            btnStep.Enabled = true;
+            btnStep.Enabled = false;
+            btnReset.Enabled = false;
             if (!chkRunInFullSpeed.Checked)
                 btnPause.Enabled = true;
         }
@@ -164,8 +171,9 @@ namespace TuringSharp.UI
         {
             btnRun.Enabled = true;
             chkRunInFullSpeed.Enabled = true;
-            btnStep.Enabled = false;
+            btnStep.Enabled = true;
             btnPause.Enabled = false;
+            btnReset.Enabled = true;
         }
 
         private void btnPause_Click(object sender, EventArgs e)
@@ -184,6 +192,7 @@ namespace TuringSharp.UI
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            isRun = false;
             ResetMachine(null);
             ExitRunMode();
         }

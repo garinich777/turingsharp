@@ -49,6 +49,7 @@ namespace TuringSharp.Runtime
         {
             State = InitialState;
             Tape = new Tape();
+            StepsNumber = 0;
             if (input != null)
                 Tape.InitializeWithData(input);
         }

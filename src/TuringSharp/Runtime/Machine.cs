@@ -17,8 +17,6 @@ namespace TuringSharp.Runtime
         public event Action<object, MachineStateChangedEventArgs> StateChanged;
         public event Action<object, TapeChangedEventArgs> TapeChanged;
 
-        string state = InitialState;
-        Tape tape = null;
         Program program = null;
 
         public void Load(Program p, string input)
@@ -31,25 +29,15 @@ namespace TuringSharp.Runtime
         {
             get
             {
-                return state.StartsWith("halt");
+                return State.StartsWith("halt");
             }
         }
 
-        public Tape Tape
-        {
-            get
-            {
-                return tape;
-            }
-        }
+        public int StepsNumber { get; private set; } = 0;
 
-        public string State
-        {
-            get
-            {
-                return state;
-            }
-        }
+        public Tape Tape { get; private set; } = null;
+
+        public string State { get; private set; } = InitialState;
 
         /// <summary>
         /// Reset the status of the machine and prepare it to execute a new program
@@ -59,10 +47,10 @@ namespace TuringSharp.Runtime
         /// </remarks>
         public void Reset(string input)
         {
-            state = InitialState;
-            tape = new Tape();
+            State = InitialState;
+            Tape = new Tape();
             if (input != null)
-                tape.InitializeWithData(input);
+                Tape.InitializeWithData(input);
         }
 
         public Statement Step()
@@ -74,29 +62,32 @@ namespace TuringSharp.Runtime
 
             // No rule for machine's current state and symbol
             if (statement == null)
+            {
                 throw new IncompleteProgramException()
                 {
-                    CurrentSymbol = tape.CurrentSymbol,
-                    State = state
+                    CurrentSymbol = Tape.CurrentSymbol,
+                    State = State
                 };
+            }
 
             // Execute statement
-            state = statement.NewState;
-            OnStateChanged(new MachineStateChangedEventArgs(state, statement.NewState));
+            State = statement.NewState;
+            OnStateChanged(new MachineStateChangedEventArgs(State, statement.NewState));
 
             if (statement.NewSymbol != Statement.AnySymbol)
-                tape.CurrentSymbol = statement.NewSymbol;
+                Tape.CurrentSymbol = statement.NewSymbol;
 
             if (statement.Direction != TapeDirection.Still)
             {
                 if (statement.Direction == TapeDirection.Right)
-                    tape.MoveRight();
+                    Tape.MoveRight();
                 else
-                    tape.MoveLeft();
+                    Tape.MoveLeft();
             }
 
-            OnTapeChanged(new TapeChangedEventArgs() { OldSymbol = tape.CurrentSymbol, NewSymbol = statement.NewSymbol, Direction = statement.Direction });
+            OnTapeChanged(new TapeChangedEventArgs() { OldSymbol = Tape.CurrentSymbol, NewSymbol = statement.NewSymbol, Direction = statement.Direction });
 
+            StepsNumber++;
             // Return the statement executed
             return statement;
         }
@@ -118,7 +109,7 @@ namespace TuringSharp.Runtime
         {
             return program.Statements
                 .OrderBy(s => s.CurrentSymbol == Statement.AnySymbol) // Give precedence to specific rules first
-                .Where(s => s.CurrentState == state && (s.CurrentSymbol == tape.CurrentSymbol || s.CurrentSymbol == Statement.AnySymbol))
+                .Where(s => s.CurrentState == State && (s.CurrentSymbol == Tape.CurrentSymbol || s.CurrentSymbol == Statement.AnySymbol))
                 .FirstOrDefault();
         }
 
@@ -126,8 +117,7 @@ namespace TuringSharp.Runtime
 
         protected virtual void OnStateChanged(MachineStateChangedEventArgs e)
         {
-            if (StateChanged != null)
-                StateChanged(this, e);
+            StateChanged?.Invoke(this, e);
         }
 
         protected void OnStateChanged()
@@ -137,8 +127,7 @@ namespace TuringSharp.Runtime
 
         public virtual void OnTapeChanged(TapeChangedEventArgs e)
         {
-            if (TapeChanged != null)
-                TapeChanged(this, e);
+            TapeChanged?.Invoke(this, e);
         }
 
         public class MachineStateChangedEventArgs : EventArgs
@@ -170,7 +159,6 @@ namespace TuringSharp.Runtime
         }
 
         #endregion
-
     }
 
 }

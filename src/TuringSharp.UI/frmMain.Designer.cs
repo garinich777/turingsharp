@@ -43,6 +43,9 @@
             this.txtCurrentState = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ofdSelectFile = new System.Windows.Forms.OpenFileDialog();
+            this.txtSteps = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnReset = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -100,6 +103,9 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.btnReset);
+            this.groupBox3.Controls.Add(this.txtSteps);
+            this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.chkRunInFullSpeed);
             this.groupBox3.Controls.Add(this.btnStep);
             this.groupBox3.Controls.Add(this.btnRun);
@@ -119,7 +125,7 @@
             // chkRunInFullSpeed
             // 
             this.chkRunInFullSpeed.AutoSize = true;
-            this.chkRunInFullSpeed.Location = new System.Drawing.Point(9, 114);
+            this.chkRunInFullSpeed.Location = new System.Drawing.Point(9, 156);
             this.chkRunInFullSpeed.Name = "chkRunInFullSpeed";
             this.chkRunInFullSpeed.Size = new System.Drawing.Size(74, 17);
             this.chkRunInFullSpeed.TabIndex = 9;
@@ -129,7 +135,7 @@
             // btnStep
             // 
             this.btnStep.Enabled = false;
-            this.btnStep.Location = new System.Drawing.Point(139, 168);
+            this.btnStep.Location = new System.Drawing.Point(139, 210);
             this.btnStep.Name = "btnStep";
             this.btnStep.Size = new System.Drawing.Size(75, 23);
             this.btnStep.TabIndex = 8;
@@ -139,7 +145,7 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(139, 110);
+            this.btnRun.Location = new System.Drawing.Point(139, 152);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(75, 23);
             this.btnRun.TabIndex = 7;
@@ -150,7 +156,7 @@
             // btnPause
             // 
             this.btnPause.Enabled = false;
-            this.btnPause.Location = new System.Drawing.Point(139, 139);
+            this.btnPause.Location = new System.Drawing.Point(139, 181);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(75, 23);
             this.btnPause.TabIndex = 6;
@@ -161,7 +167,7 @@
             // txtInput
             // 
             this.txtInput.BackColor = System.Drawing.SystemColors.Window;
-            this.txtInput.Location = new System.Drawing.Point(9, 84);
+            this.txtInput.Location = new System.Drawing.Point(9, 126);
             this.txtInput.Name = "txtInput";
             this.txtInput.Size = new System.Drawing.Size(205, 20);
             this.txtInput.TabIndex = 5;
@@ -169,7 +175,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 68);
+            this.label2.Location = new System.Drawing.Point(6, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 4;
@@ -177,7 +183,7 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(139, 42);
+            this.btnLoad.Location = new System.Drawing.Point(139, 84);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(75, 23);
             this.btnLoad.TabIndex = 2;
@@ -208,6 +214,38 @@
             // ofdSelectFile
             // 
             this.ofdSelectFile.Filter = "Text Files|*.txt";
+            // 
+            // txtSteps
+            // 
+            this.txtSteps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.txtSteps.Location = new System.Drawing.Point(86, 48);
+            this.txtSteps.Name = "txtSteps";
+            this.txtSteps.ReadOnly = true;
+            this.txtSteps.Size = new System.Drawing.Size(128, 20);
+            this.txtSteps.TabIndex = 11;
+            this.txtSteps.Text = "0";
+            this.txtSteps.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Steps";
+            // 
+            // btnReset
+            // 
+            this.btnReset.BackColor = System.Drawing.Color.Red;
+            this.btnReset.Enabled = false;
+            this.btnReset.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnReset.Location = new System.Drawing.Point(139, 239);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 12;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = false;
             // 
             // frmMain
             // 
@@ -246,6 +284,9 @@
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.OpenFileDialog ofdSelectFile;
+        private System.Windows.Forms.TextBox txtSteps;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnReset;
     }
 }
 

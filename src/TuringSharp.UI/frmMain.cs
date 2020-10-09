@@ -11,8 +11,6 @@ namespace TuringSharp.UI
 {
     public partial class frmMain : Form
     {
-
-        bool isRunning;
         Machine machine;
         Task machineTask;
         CancellationTokenSource machineTaskCancellationToken;
@@ -132,6 +130,9 @@ namespace TuringSharp.UI
             if (chkRunInFullSpeed.Checked)
             {
                 machine.Run();
+                InvokeOnMainThread(
+                     () => { txtSteps.Text = machine.StepsNumber.ToString(); }
+                );
             }
             else
             {
@@ -142,6 +143,9 @@ namespace TuringSharp.UI
                     while (!machine.IsHalted && !ct.IsCancellationRequested)
                     {
                         machine.Step();
+                        InvokeOnMainThread(
+                            ()=> { txtSteps.Text = machine.StepsNumber.ToString(); }
+                        );
                         Thread.Sleep(200);
                     }
 
